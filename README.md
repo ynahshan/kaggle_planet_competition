@@ -3,3 +3,4 @@ https://www.kaggle.com/c/planet-understanding-the-amazon-from-space
 
 Place 37
 All deep learning models implemented using keras with Tensorflow backend.
+https://www.kaggle.com/c/planet-understanding-the-amazon-from-space/leaderboard
