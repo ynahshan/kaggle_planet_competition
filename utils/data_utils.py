@@ -68,6 +68,36 @@ def load_jpg_data(df_csv, data_dir, label_map, img_size=None, subset_size=None):
     Y = np.array(Y, np.uint8)
     return X, Y
 
+
+def load_data(df_csv, data_dir, label_map, img_size=None, subset_size=None):
+    data_size = len(df_csv) if subset_size is None else subset_size
+    width = height = 256 if img_size is None else img_size
+    chanels = 3
+    X = np.empty((data_size, width, height, chanels))
+    Y = []
+
+    # for f, tags in tqdm(df_train.sample(subset_size).values, miniters=1000):
+    if subset_size is not None:
+        data_progress = tqdm(df_csv.sample(subset_size).values)
+    else:
+        data_progress = tqdm(df_csv.values)
+
+    for i, (f, tags) in enumerate(data_progress):
+        f_name = '{}.jpg'.format(f)
+        img = cv2.imread(os.path.join(data_dir, f_name))
+        targets = np.zeros(17)
+        for t in tags.split(' '):
+            targets[label_map[t]] = 1
+        if img_size is not None:
+            X[i] = cv2.resize(img, (img_size, img_size)) / 255.
+        else:
+            X[i] = img / 255.
+        Y.append(targets)
+    print("Creating numpy array for data...")
+    # X = np.array(X, np.float16) / 255.
+    Y = np.array(Y, np.uint8)
+    return X, Y
+
 def to_tagging(one_hot_data, inv_label_map):
     res = pd.DataFrame(index=range(len(one_hot_data)), columns=['tags'])
     for j in range(len(one_hot_data)):
