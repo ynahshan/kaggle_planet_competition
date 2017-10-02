@@ -40,7 +40,7 @@ if __name__ == '__main__':
     img_size = args.in_size
     labels, label_map, inv_label_map = get_labels()
     print(labels)
-    X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size=img_size)
+    X, Y = load_data(df_train, train_data_dir, label_map, img_size=img_size)
     print("Sape of X: %s, shape of Y: %s" % (X.shape, Y.shape))
 
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, test_size=0.2, random_state=0)

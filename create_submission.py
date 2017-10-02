@@ -57,10 +57,10 @@ if __name__ == '__main__':
         print("Optimizing thresholds per class on Validation set")
         if args.dev is not None:
             img_size = args.in_size
-            X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size=img_size, subset_size=1000)
+            X, Y = load_data(df_train, train_data_dir, label_map, img_size=img_size, subset_size=1000)
         else:
             img_size = args.in_size
-            X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size=img_size)
+            X, Y = load_data(df_train, train_data_dir, label_map, img_size=img_size)
 
         _, X_valid, _, Y_valid = train_test_split(X, Y, test_size=0.2, random_state=0)
         p_valid = model.predict(X_valid, batch_size=batch_size, verbose=2)
@@ -71,10 +71,10 @@ if __name__ == '__main__':
     print("Loading test data")
     if args.dev is not None:
         img_size = args.in_size
-        X, _ = load_jpg_data(df_test, test_data_dir, label_map, img_size=img_size, subset_size=1000)
+        X, _ = load_data(df_test, test_data_dir, label_map, img_size=img_size, subset_size=1000)
     else:
         img_size = args.in_size
-        X, _ = load_jpg_data(df_test, test_data_dir, label_map, img_size=img_size)
+        X, _ = load_data(df_test, test_data_dir, label_map, img_size=img_size)
 
     print ("Evaluating model...")
     p_test = model.predict(X, batch_size=batch_size, verbose=2)

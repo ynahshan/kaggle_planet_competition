@@ -65,9 +65,9 @@ if __name__ == '__main__':
 
     # Assume all networks requires same input size, don't check it
     if args.dev:
-        X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size = args.in_size, subset_size=100)
+        X, Y = load_data(df_train, train_data_dir, label_map, img_size = args.in_size, subset_size=100)
     else:
-        X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size = args.in_size)
+        X, Y = load_data(df_train, train_data_dir, label_map, img_size = args.in_size)
     print("Sape of X: %s, shape of Y: %s" % (X.shape, Y.shape))
 
     data_split_seed = args.random_seed

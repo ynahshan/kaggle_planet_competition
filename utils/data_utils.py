@@ -42,31 +42,31 @@ def npz_to_ndarray(npz_container):
     return np_arr
 
 
-def load_jpg_data(df_csv, data_dir, label_map, img_size=None, subset_size=None):
-    X = []
-    Y = []
-
-    # for f, tags in tqdm(df_train.sample(subset_size).values, miniters=1000):
-    if subset_size is not None:
-        data_progress = tqdm(df_csv.sample(subset_size).values, miniters=1000)
-    else:
-        data_progress = tqdm(df_csv.values, miniters=1000)
-
-    for f, tags in data_progress:
-        f_name = '{}.jpg'.format(f)
-        img = cv2.imread(os.path.join(data_dir, f_name))
-        targets = np.zeros(17)
-        for t in tags.split(' '):
-            targets[label_map[t]] = 1
-        if img_size is not None:
-            X.append(cv2.resize(img, (img_size, img_size)))
-        else:
-            X.append(img)
-        Y.append(targets)
-    print("Creating numpy array for data...")
-    X = np.array(X, np.float16) / 255.
-    Y = np.array(Y, np.uint8)
-    return X, Y
+# def load_data(df_csv, data_dir, label_map, img_size=None, subset_size=None):
+#     X = []
+#     Y = []
+#
+#     # for f, tags in tqdm(df_train.sample(subset_size).values, miniters=1000):
+#     if subset_size is not None:
+#         data_progress = tqdm(df_csv.sample(subset_size).values, miniters=1000)
+#     else:
+#         data_progress = tqdm(df_csv.values, miniters=1000)
+#
+#     for f, tags in data_progress:
+#         f_name = '{}.jpg'.format(f)
+#         img = cv2.imread(os.path.join(data_dir, f_name))
+#         targets = np.zeros(17)
+#         for t in tags.split(' '):
+#             targets[label_map[t]] = 1
+#         if img_size is not None:
+#             X.append(cv2.resize(img, (img_size, img_size)))
+#         else:
+#             X.append(img)
+#         Y.append(targets)
+#     print("Creating numpy array for data...")
+#     X = np.array(X, np.float16) / 255.
+#     Y = np.array(Y, np.uint8)
+#     return X, Y
 
 
 def load_data(df_csv, data_dir, label_map, img_size=None, subset_size=None):
@@ -181,7 +181,7 @@ class InputManager:
     def load_inputs(self, in_sizes):
         for in_size in in_sizes:
             print("Loading data and resizing to %d" % in_size)
-            X, Y = load_jpg_data(self.df_train, self.train_data_dir, self.label_map, img_size=in_size)
+            X, Y = load_data(self.df_train, self.train_data_dir, self.label_map, img_size=in_size)
             self.data[in_size] = Data(X, Y)
             print("Done. Shape of X: %s, shape of Y: %s" % (X.shape, Y.shape))
 

@@ -39,7 +39,7 @@ class TrainingParameters:
 
 # models = [ TrainingParameters('dev', 32) ]
 models = [
-    TrainingParameters('resnet152_1', 256)
+    TrainingParameters('starter1', 128)
     # TrainingParameters('resnet50_1', 256)
 ]
 
@@ -242,9 +242,9 @@ if __name__ == '__main__':
     if args.augmented_dir is None:
         # Assume all networks requires same input size, don't check it
         if args.dev:
-            X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size=models[0].in_size, subset_size=1000)
+            X, Y = load_data(df_train, train_data_dir, label_map, img_size=models[0].in_size, subset_size=1000)
         else:
-            X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size=models[0].in_size)
+            X, Y = load_data(df_train, train_data_dir, label_map, img_size=models[0].in_size)
         print("Sape of X: %s, shape of Y: %s" % (X.shape, Y.shape))
 
         seed = 0

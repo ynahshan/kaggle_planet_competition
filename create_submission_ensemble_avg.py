@@ -57,10 +57,10 @@ if __name__ == '__main__':
     print("Loading test data")
     if args.dev:
         img_size = args.in_size
-        X, _ = load_jpg_data(df_test, test_data_dir, label_map, img_size=img_size, subset_size=100)
+        X, _ = load_data(df_test, test_data_dir, label_map, img_size=img_size, subset_size=100)
     else:
         img_size = args.in_size
-        X, _ = load_jpg_data(df_test, test_data_dir, label_map, img_size=img_size)
+        X, _ = load_data(df_test, test_data_dir, label_map, img_size=img_size)
 
     print("Evaluate models")
     preds = []

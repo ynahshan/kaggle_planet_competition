@@ -45,9 +45,9 @@ if __name__ == '__main__':
 
     # Assume all networks requires same input size, don't check it
     if args.dev is not None:
-        X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size=img_size, subset_size=1000)
+        X, Y = load_data(df_train, train_data_dir, label_map, img_size=img_size, subset_size=1000)
     else:
-        X, Y = load_jpg_data(df_train, train_data_dir, label_map, img_size=img_size)
+        X, Y = load_data(df_train, train_data_dir, label_map, img_size=img_size)
 
     X_train, X_valid, Y_train, Y_valid = train_test_split(X, Y, test_size=0.2, random_state=0)
     print("Loading model...")
