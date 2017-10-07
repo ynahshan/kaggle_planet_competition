@@ -2,6 +2,10 @@ import argparse
 import os
 import pandas as pd
 
+import matplotlib
+matplotlib.use('pdf')
+import matplotlib.pyplot as plt
+
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import fbeta_score
 from keras.callbacks import LambdaCallback, EarlyStopping, ModelCheckpoint
@@ -12,7 +16,6 @@ from model.model_factory import ModelFactory
 from utils.gpu_utils import to_multi_gpu
 
 import shutil
-import matplotlib.pyplot as plt
 import sys
 from datetime import datetime
 import random
@@ -39,8 +42,9 @@ class TrainingParameters:
 
 # models = [ TrainingParameters('dev', 32) ]
 models = [
-    TrainingParameters('starter1', 128)
-    # TrainingParameters('resnet50_1', 256)
+    # TrainingParameters('starter1', 128)
+    # TrainingParameters('resnet50_1', 256),
+    TrainingParameters('inceptionV3_1', 256)
 ]
 
 def write_log(log_name, line):
